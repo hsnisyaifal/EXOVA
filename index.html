@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letters 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: #0d0c10;
+    background-image: 
+        radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+        radial-gradient(at 100% 100%, hsla(263,60%,15%,1) 0, transparent 50%);
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    overflow-x: hidden;
+}
+
+.container{
+    width:100%;
+    max-width:800px;
+    margin: auto;
+}
+
+/* LOGO SPACE AESTHETIC */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo-exova {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(167, 139, 250, 0.4);
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.logo-exova:hover {
+    transform: scale(1.05);
+}
+
+/* MENU (Fixed: Ditambahkan opacity awal agar teks langsung muncul) */
+#menu{
+    background: rgba(18, 16, 23, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    opacity: 1; /* -> Kunci perbaikan utama di sini */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#menu h1{
+    margin-bottom: 8px;
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#menu p{
+    opacity: 0.5;
+    margin-bottom: 35px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:15px;
+}
+
+.menu-grid button{
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    font-weight: 600;
+    cursor:pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-grid button:hover{
+    transform: translateY(-4px) scale(1.02);
+    background: #ffffff;
+    color: #0d0c10;
+    box-shadow: 0 10px 25px rgba(167, 139, 250, 0.2);
+    border-color: #ffffff;
+}
+
+/* SURAT */
+.surat{
+    display:none;
+    background: rgba(18, 16, 23, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 45px 40px;
+    color: #e2e8f0;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.surat.aktif {
+    display: block;
+    opacity: 1;
+    animation: smoothShow 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.surat h2{
+    margin-bottom:25px;
+    color:#c084fc;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.surat p{
+    white-space:pre-line;
+    line-height:2;
+    font-size:16px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.kembali{
+    margin-top:35px;
+    padding:14px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius:12px;
+    cursor:pointer;
+    background: transparent;
+    color: #a78bfa;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kembali:hover{
+    background: rgba(167, 139, 250, 0.1);
+    border-color: #a78bfa;
+    transform: translateX(-4px);
+}
+
+/* DISTRO FOOTER */
+.distro-footer {
+    margin-top: 50px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4); 
+    font-size: 12px; 
+    letter-spacing: 4px; 
+    text-transform: uppercase;
+    font-weight: 800; 
+    line-height: 1.8;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1); 
+    padding-top: 20px;
+    width: 100%;
+    max-width: 400px; 
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 1s ease forwards;
+}
+
+.distro-footer span {
+    color: #a78bfa; 
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.6); 
+}
+
+@keyframes smoothShow {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo-container">
+        <img src="EXOVA.jpg" alt="Logo Exova" class="logo-exova">
+    </div>
+
+    <div id="menu">
+        <h1>💜 Letters 💜</h1>
+        <p>Select a name to unfold the message</p>
+
+        <div class="menu-grid">
+            <button onclick="bukaSurat('kiki')">💌 Kiki</button>
+            <button onclick="bukaSurat('ciel')">💌 Ciel</button>
+            <button onclick="bukaSurat('angels')">💌 Angels</button>
+            <button onclick="bukaSurat('nabila')">💌 Nabila</button>
+            <button onclick="bukaSurat('tiara')">💌 Tiara</button>
+            <button onclick="bukaSurat('clara')">💌 Clara</button>
+            <button onclick="bukaSurat('farel')">💌 Farel</button>
+        </div>
+    </div>
+
+    <!-- SURAT SECTIONS -->
+    <div id="surat-kiki" class="surat">
+        <h2>Dear Kiki 💜</h2>
+        <p>ki, makasi banyak yaa udah jadi bagian dari exova dari awal banget sampe sejauh ini. makasi udah bertahan, udah mau ngajarin, ngebimbing, dan nge-push kita pelan-pelan biar bisa berkembang bareng. enam bulan bukan waktu yang sebentar, dan gua bener-bener berterima kasih buat semua perjuangan yang udah elu kasih ke exova. semoga performance pertama dan terakhir kita bareng bisa jadi kenangan sekaligus penampilan terbaik yang pernah kita kasih. sukses terus ya ki, semoga kehidupan elu di luar bogor bisa jauh lebih baik dari sebelumnya. dan inget, seberapa jauh pun langkah elu nanti, exova bakal tetep jadi rumah kalian.</p>
+        <button class="kembali" onclick="kembali()">← Back</button>
+    </div>
+
+    <div id="surat-ciel" class="surat">
+        <h2>Dear Ciel 🌙</h2>
+        <p>ciel, makasi yaa udah mau ngebimbing anak-anak exova dari awal sampe akhir. makasi juga karena selalu nemenin gua di setiap rangkaian perjalanan ini. elu jadi salah satu sosok yang punya peran besar buat exova dan banyak ngasih hal baik buat kita semua. setelah ini, terus kejar mimpi-mimpi elu ya. jangan gampang patah, jangan gampang goyah, dan percaya kalau semua impian yang selama ini elu perjuangin bakal bisa tercapai. inget ciel, pintu exova bakal selalu terbuka dan exova bakal tetep jadi rumah kalian.</p>
+        <button class="kembali" onclick="kembali()">← Back</button>
+    </div>
+
+    <div id="surat-angels" class="surat">
+        <h2>Dear Angels ✨</h2>
+        <p>angels, makasi banyak yaa udah mau gabung di exova dan jadi bagian dari EXHEART. makasi juga karena udah nyempetin waktu di tengah kesibukan kuliah yang pasti ga gampang buat dijalanin. gua seneng banget bisa kenal dan jalan bareng sama elu di sini. semoga setelah graduate nanti semua yang elu cita-citain bisa tercapai satu per satu. sukses terus yaa, dan jangan pernah berhenti ngejar apa yang elu mau. inget angels, exova bakal tetep jadi rumah kalian.</p>
+        <button class="kembali" onclick="kembali()">← Back</button>
+    </div>
+
+    <div id="surat-nabila" class="surat">
+        <h2>Dear Nabila 🌷</h2>
+        <p>nab, makasi yaa buat semuanya. ini mungkin jadi awal perjalanan baru elu di luar sana, dan gua yakin elu bisa nunjukkin kemampuan terbaik elu di mana pun nanti. makasi udah selalu ngasih yang terbaik buat exova dan udah nemenin anak-anak exova sampai di titik terakhir ini. kejar terus semua impian elu dan jadi pribadi hebat seperti yang selama ini gua kenal. semoga semua jalan yang elu pilih membawa banyak hal baik ke depannya. dan inget nab, exova bakal tetep jadi rumah kalian.</p>
+        <button class="kembali" onclick="kembali()">← Back</button>
+    </div>
+
+    <div id="surat-tiara" class="surat">
+        <h2>Dear Tiara 👑</h2>
+        <p>ti, makasi yaa udah mau masuk dan jadi bagian dari exova di tengah masa-masa elu yang sibuk. makasi juga karena masih nyempetin tenaga dan waktu buat ikut latihan bahkan setelah pulang kerja. itu bukan hal yang gampang dan gua bener-bener menghargai semua usaha yang udah elu kasih. semoga setelah ini semua yang elu pengen bisa tercapai dan semua perjuangan elu dibayar dengan hasil yang terbaik. inget ti, exova bakal tetep jadi rumah kalian.</p>
+        <button class="kembali" onclick="kembali()">← Back</button>
+    </div>
+
+    <div id="surat-clara" class="surat">
+        <h2>Dear Clara 🌸</h2>
+        <p>clara, makasii banyak yaa udah mau gabung EXHEART bahkan di waktu yang mepet banget, cuma h-5 sebelum performance. makasi juga karena udah mau bantu dan berusaha bareng kita sampai akhirnya bisa berdiri di panggung ini. walaupun waktunya singkat, kehadiran elu tetap jadi bagian penting dari perjalanan kita. semoga setelah ini semua hal yang elu pengenin bisa tercapai satu per satu. sukses terus ya clara, dan inget exova bakal tetep jadi rumah kalian.</p>
+        <button class="kembali" onclick="kembali()">← Back</button>
+    </div>
+
+    <div id="surat-farel" class="surat">
+        <h2>Dear Farel 🔥</h2>
+        <p>farel, makasi yaa udah jadi bagian dari perjalanan ini. semangat terus buat langkah-langkah elu ke depannya. semoga semua jalan yang elu pilih dan semua keputusan yang elu ambil bisa jadi jalan terbaik buat masa depan elu. jangan takut buat terus berkembang dan nyoba hal-hal baru. gua yakin masih banyak hal baik yang nunggu elu di depan sana. sukses terus ya rel, dan inget, sejauh apa pun elu melangkah nanti, exova bakal tetep jadi rumah kalian.</p>
+        <button class="kembali" onclick="kembali()">← Back</button>
+    </div>
+
+</div>
+
+<div class="distro-footer">
+    © Made with pride by <span>Husni</span> for all of you<br>
+    All rights reserved. Exova Project.
+</div>
+
+<script>
+function bukaSurat(nama){
+    const menu = document.getElementById("menu");
+    menu.style.opacity = "0";
+    
+    setTimeout(() => {
+        menu.style.display = "none";
+        
+        document.querySelectorAll(".surat").forEach(function(item){
+            item.classList.remove("aktif");
+            item.style.display = "none";
+        });
+
+        const targetSurat = document.getElementById("surat-" + nama);
+        targetSurat.style.display = "block";
+        // memicu reflow agar animasi transisi opacity berjalan lancar
+        targetSurat.offsetHeight; 
+        targetSurat.classList.add("aktif");
+    }, 400); 
+}
+
+function kembali(){
+    document.querySelectorAll(".surat").forEach(function(item){
+        item.classList.remove("aktif");
+        setTimeout(() => { item.style.display = "none"; }, 400);
+    });
+
+    setTimeout(() => {
+        const menu = document.getElementById("menu");
+        menu.style.display = "block";
+        menu.offsetHeight; 
+        menu.style.opacity = "1";
+    }, 400);
+}
+</script>
+
+</body>
+</html>
